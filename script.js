@@ -67,7 +67,7 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', () => {
-    const animateElements = document.querySelectorAll('.skill-category, .project-card, .about-text');
+    const animateElements = document.querySelectorAll('.project-card, .about-text');
     
     animateElements.forEach(el => {
         el.style.opacity = '0';
@@ -102,21 +102,6 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Typing effect for hero title (optional enhancement)
-function typeWriter(element, text, speed = 100) {
-    let i = 0;
-    element.innerHTML = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    
-    type();
-}
 
 // Performance optimization: Debounce scroll events
 function debounce(func, wait) {
@@ -138,54 +123,8 @@ const debouncedScrollHandler = debounce(() => {
 
 window.addEventListener('scroll', debouncedScrollHandler);
 
-// Contact handling - no longer needed since we removed direct email
-// Keeping function structure for potential future contact features
 
-// Form validation (if contact form is added later)
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-}
 
-// Lazy loading for images (when project images are added)
-function lazyLoadImages() {
-    const images = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-
-    images.forEach(img => imageObserver.observe(img));
-}
-
-// Initialize lazy loading when DOM is ready
-document.addEventListener('DOMContentLoaded', lazyLoadImages);
-
-// Copy email to clipboard functionality
-function copyToClipboard(text) {
-    if (navigator.clipboard && window.isSecureContext) {
-        return navigator.clipboard.writeText(text);
-    } else {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        return new Promise((res, rej) => {
-            document.execCommand('copy') ? res() : rej();
-            textArea.remove();
-        });
-    }
-}
 
 // Contact link tracking (optional analytics)
 document.addEventListener('DOMContentLoaded', () => {
